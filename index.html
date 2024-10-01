@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagens Aleatórias</title>
+    <script>
+        const images = [
+            'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fHdlYnxlbnwwfHx8fDE2MzI5OTQyNjQ&ixlib=rb-1.2.1&q=80&w=400',
+            'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDV8fGZsb3dlcnxlbnwwfHx8fDE2MzI5OTQyNjQ&ixlib=rb-1.2.1&q=80&w=400',
+            'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fHBob3RvfGVufDB8fHx8MTYzMjk5NDI2NA&ixlib=rb-1.2.1&q=80&w=400',
+            'https://images.unsplash.com/photo-1506765515384-028b60a970df?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDl8fGNhcnxlbnwwfHx8fDE2MzI5OTQyNjQ&ixlib=rb-1.2.1&q=80&w=400',
+            'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGJvb2tzfGVufDB8fHx8MTYzMjk5NDI2NA&ixlib=rb-1.2.1&q=80&w=400'
+        ];
+
+        // Função para selecionar uma nova imagem aleatória
+        function getRandomImage() {
+            const randomIndex = Math.floor(Math.random() * images.length);
+            return images[randomIndex];
+        }
+
+        // Endpoint para retornar a URL da imagem aleatória
+        self.addEventListener('fetch', (event) => {
+            if (event.request.url.endsWith('/random-image')) {
+                const imageUrl = getRandomImage();
+                event.respondWith(new Response(JSON.stringify({ url: imageUrl }), {
+                    headers: { 'Content-Type': 'application/json' }
+                }));
+            }
+        });
+    </script>
+</head>
+<body>
+    <img id="randomImage" src="" alt="Imagem Aleatória">
+</body>
+</html>
